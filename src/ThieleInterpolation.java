@@ -1,17 +1,47 @@
 import java.util.Arrays;
 
+
 public class ThieleInterpolation {
     /**
      * Number of Data points
      */
     private static final int N = 5;
     /**
-     * Size of Cache
+     * Size of Cache for rho
      */
     private static final int N2 = (N * (N - 1) / 2);
+    /**
+     * Rational Interpolation input dataset
+     */
     private static final double[] xvals = new double[N];
+    /**
+     * Rational Interpolation output dataset
+     */
     private static final double[] yvals = new double[N];
+    /**
+     * Cache list for rho
+     */
     private static final double[] rvals = new double[N2];
+    static {
+        initializeDataSet();
+    }
+
+    private static void initializeDataSet() {
+        //It's convenient for the cache to be NaN
+        Arrays.fill(rvals, Double.NaN);
+
+        xvals[0] = 1.42;
+        xvals[1] = 2.56;
+        xvals[2] = 3.4056;
+        xvals[3] = 4.50;
+        xvals[4] = 5.50;
+
+        yvals[0] = 45;
+        yvals[1] = 27;
+        yvals[2] = 21;
+        yvals[3] = 19.5;
+        yvals[4] = 17.5;
+    }
 
     /**
      * Recursive Reciprocal Difference Function
@@ -34,6 +64,7 @@ public class ThieleInterpolation {
         }
 
         int idx = (N - 1 - n) * (N - n) / 2 + i;
+        //Double NaN comparison returns false
         if (r[idx] != r[idx]) {
             r[idx] = (x[i] - x[i + n])
                     / (rho(x, y, r, i, n - 1) - rho(x, y, r, i + 1, n - 1))
@@ -60,26 +91,22 @@ public class ThieleInterpolation {
                 + (xin - x[n]) / thiele(x, y, r, xin, n + 1);
     }
 
+    /**
+     * Gets the ideal shooter angle for a given distance away from the speaker using rational interpolation
+     * @param distance in meters from speaker as reported by PhotonVision
+     * @return optimal shooter angle in degrees
+     */
+    public static double shooterDistanceToAngle(double distance) {
+        return thiele(xvals, yvals, rvals, distance, 0);
+    }
+
+    /*
+
     public static void main(String[] args) {
-        Arrays.fill(rvals, Double.NaN);
-
-        xvals[0] = 1.42;
-        xvals[1] = 2.56;
-        xvals[2] = 3.4056;
-        xvals[3] = 4.50;
-        xvals[4] = 5.50;
-
-        yvals[0] = 45;
-        yvals[1] = 27;
-        yvals[2] = 21;
-        yvals[3] = 19.5;
-        yvals[4] = 17.5;
-
-
-
         for(int i = 0;i < 300;i++) {
-
             System.out.printf("%16.14f    %.2f %n", thiele(xvals, yvals, rvals, i * 0.02, 0), i * 0.02);
         }
     }
+
+   */
 }
