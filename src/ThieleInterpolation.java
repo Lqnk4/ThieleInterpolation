@@ -74,14 +74,10 @@ public class ThieleInterpolation {
         yvals[3] = 19.5;
 
 
-        System.out.printf("%16.14f%n", thiele(xvals, yvals, rvals, 1, 0));
-        System.out.printf("%16.14f%n", thiele(xvals, yvals, rvals, 1.42, 0));
-        System.out.printf("%16.14f%n", thiele(xvals, yvals, rvals, 2, 0));
-        System.out.printf("%16.14f%n", thiele(xvals, yvals, rvals, 2.56, 0));
-        System.out.printf("%16.14f%n", thiele(xvals, yvals, rvals, 3, 0));
-        System.out.printf("%16.14f%n", thiele(xvals, yvals, rvals, 3.4056, 0));
-        System.out.printf("%16.14f%n", thiele(xvals, yvals, rvals, 4, 0));
-        System.out.printf("%16.14f%n", thiele(xvals, yvals, rvals, 4.50, 0));
 
+        for(int i = 0;i < 300;i++) {
+
+            System.out.printf("%16.14f    %.2f %n", thiele(xvals, yvals, rvals, i * 0.02, 0), i * 0.02);
+        }
     }
 }
