@@ -4,7 +4,7 @@ public class ThieleInterpolation {
     /**
      * Number of Data points
      */
-    private static final int N = 4;
+    private static final int N = 5;
     /**
      * Size of Cache
      */
@@ -67,11 +67,13 @@ public class ThieleInterpolation {
         xvals[1] = 2.56;
         xvals[2] = 3.4056;
         xvals[3] = 4.50;
+        xvals[4] = 5.50;
 
         yvals[0] = 45;
         yvals[1] = 27;
         yvals[2] = 21;
         yvals[3] = 19.5;
+        yvals[4] = 17.5;
 
 
 
